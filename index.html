@@ -14,11 +14,11 @@
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
 
-    <!-- FAVICON (URL ke side wala chhota image) -->
+    <!-- FAVICON -->
     <link rel="icon" href="https://i.ibb.co/5hJk0KFt/stylized-blue-letter.png" type="image/png">
     <link rel="apple-touch-icon" href="https://i.ibb.co/5hJk0KFt/stylized-blue-letter.png">
 
-    <!-- OPEN GRAPH (BIG IMAGE PREVIEW FOR SEARCH / SHARE) -->
+    <!-- OPEN GRAPH -->
     <meta property="og:type" content="profile">
     <meta property="og:title" content="Kshitij Rajput | Dori Technology">
     <meta property="og:description" content="Founder & CEO of Dori Technology. Building independent AI technology in India.">
@@ -26,7 +26,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="1200">
 
-    <!-- TWITTER / GOOGLE LARGE IMAGE -->
+    <!-- TWITTER -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Kshitij Rajput | Dori Technology">
     <meta name="twitter:description" content="Founder of Dori Technology | Independent AI Innovator">
@@ -34,119 +34,191 @@
 
     <!-- STYLES -->
     <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *{margin:0;padding:0;box-sizing:border-box;}
 
         body{
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #ffffff;
-            color: #111111;
-            text-align: center;
+            font-family:'Segoe UI', Arial, sans-serif;
+            background:#ffffff;
+            color:#111;
+            text-align:center;
+        }
+
+        /* LOADER */
+        #loader{
+            position:fixed;
+            inset:0;
+            background:#0A2540;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            flex-direction:column;
+            color:#fff;
+            z-index:9999;
+        }
+
+        .spinner{
+            width:50px;
+            height:50px;
+            border:5px solid rgba(255,255,255,0.3);
+            border-top:5px solid #fff;
+            border-radius:50%;
+            animation:spin 1s linear infinite;
+            margin-bottom:15px;
+        }
+
+        @keyframes spin{
+            to{transform:rotate(360deg);}
+        }
+
+        /* ERROR SCREEN */
+        #error{
+            display:none;
+            height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            flex-direction:column;
         }
 
         header{
-            width: 100%;
-            padding: 16px 0;
-            background-color: #0A2540;
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 600;
-            letter-spacing: 1px;
+            width:100%;
+            padding:16px 0;
+            background:#0A2540;
+            color:#fff;
+            font-size:18px;
+            font-weight:600;
+            letter-spacing:1px;
         }
 
         .container{
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 0 20px;
+            max-width:800px;
+            margin:50px auto;
+            padding:0 20px;
         }
 
         .profile-img{
-            width: 220px;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 4px solid #0A2540;
-            margin-bottom: 25px;
+            width:220px;
+            height:220px;
+            object-fit:cover;
+            border-radius:50%;
+            border:4px solid #0A2540;
+            margin-bottom:25px;
         }
 
         .name{
-            font-size: 44px;
-            font-weight: 700;
-            color: #0A2540;
-            margin-bottom: 8px;
+            font-size:44px;
+            font-weight:700;
+            color:#0A2540;
+            margin-bottom:8px;
         }
 
         .role{
-            font-size: 20px;
-            color: #6B7280;
-            margin-bottom: 40px;
+            font-size:20px;
+            color:#6B7280;
+            margin-bottom:40px;
         }
 
         h2{
-            color: dodgerblue;
-            margin-top: 40px;
-            margin-bottom: 15px;
+            color:dodgerblue;
+            margin-top:40px;
+            margin-bottom:15px;
         }
 
         p{
-            max-width: 800px;
-            margin: 0 auto 15px;
-            line-height: 1.6;
-            padding: 0 20px;
+            max-width:800px;
+            margin:0 auto 15px;
+            line-height:1.6;
+            padding:0 20px;
         }
 
         strong{
-            color: dodgerblue;
+            color:dodgerblue;
         }
     </style>
 </head>
 
 <body>
 
-    <header>
-        DORI TECHNOLOGY
-    </header>
+<!-- LOADING SCREEN -->
+<div id="loader">
+    <div class="spinner"></div>
+    <p>Loading Dori Technology...</p>
+</div>
 
-    <div class="container">
-        <img 
-            src="https://i.ibb.co/qY4Sw6zM/Chat-GPT-Image-Dec-17-2025-12-39-55-PM.png"
-            alt="Kshitij Rajput - Founder of Dori Technology"
-            class="profile-img"
-        >
+<!-- ERROR SCREEN -->
+<div id="error">
+    <h2>No Internet Connection</h2>
+    <p>Please check your internet connection and reload the page.</p>
+</div>
 
-        <h1 class="name">Kshitij Rajput</h1>
-        <h2 class="role">Founder & CEO of Dori Technology</h2>
-    </div>
+<!-- MAIN CONTENT -->
+<div id="main" style="display:none;">
 
-    <h2>About Kshitij Rajput</h2>
+<header>DORI TECHNOLOGY</header>
 
-    <p>
-        Kshitij Rajput was born in Sangli, India and has been passionate about technology and innovation from a young age.
-    </p>
+<div class="container">
+    <img 
+        id="profileImage"
+        src="https://i.ibb.co/qY4Sw6zM/Chat-GPT-Image-Dec-17-2025-12-39-55-PM.png"
+        alt="Kshitij Rajput - Founder of Dori Technology"
+        class="profile-img">
 
-    <p>
-        He is the founder of <strong>Dori Technology</strong> and is currently working on an AI system developed using his own independent technology.
-    </p>
+    <h1 class="name">Kshitij Rajput</h1>
+    <h2 class="role">Founder & CEO of Dori Technology</h2>
+</div>
 
-    <p>
-        Kshitij is an entrepreneur and innovator focused on building future-ready solutions in the field of artificial intelligence.
-    </p>
+<h2>About Kshitij Rajput</h2>
 
-    <p>
-        As of 2025, he is pursuing his school education at <strong>Shahapur High School, Shahapur</strong>, located in Ichalkaranji.
-    </p>
+<p>
+Kshitij Rajput was born in Sangli, India and has been passionate about technology and innovation from a young age.
+</p>
 
-    <p>
-        He represents the new generation of innovators shaping the future of technology.
-    </p>
+<p>
+He is the founder of <strong>Dori Technology</strong> and is currently working on an AI system developed using his own independent technology.
+</p>
 
-    <p>
-        His vision is to help make India stronger and more advanced in the field of technology.
-    </p>
+<p>
+Kshitij is an entrepreneur and innovator focused on building future-ready solutions in the field of artificial intelligence.
+</p>
+
+<p>
+As of 2025, he is pursuing his school education at <strong>Shahapur High School, Shahapur</strong>, located in Ichalkaranji.
+</p>
+
+<p>
+He represents the new generation of innovators shaping the future of technology.
+</p>
+
+<p>
+His vision is to help make India stronger and more advanced in the field of technology.
+</p>
+
+</div>
+
+<script>
+    const img = document.getElementById("profileImage");
+    const loader = document.getElementById("loader");
+    const main = document.getElementById("main");
+    const error = document.getElementById("error");
+
+    if(!navigator.onLine){
+        loader.style.display="none";
+        error.style.display="flex";
+    }
+
+    img.onload = () => {
+        loader.style.display="none";
+        main.style.display="block";
+    };
+
+    img.onerror = () => {
+        loader.style.display="none";
+        error.style.display="flex";
+    };
+</script>
 
 </body>
 </html>
+
+
 
